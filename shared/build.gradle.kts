@@ -6,6 +6,7 @@ plugins {
 }
 
 kotlin {
+    jvm()
     android()
     
     listOf(
