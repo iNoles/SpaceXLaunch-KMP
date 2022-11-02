@@ -1,24 +1,24 @@
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ListItem
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Tab
+import androidx.compose.material.TabRow
 import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -36,6 +36,7 @@ import androidx.compose.ui.window.rememberWindowState
 import com.jonathansteele.spacexlaunch.Launch
 import com.jonathansteele.spacexlaunch.SpaceXAPI
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import kotlinx.datetime.toJavaInstant
 import org.jetbrains.skia.Image.Companion.makeFromEncoded
@@ -56,8 +57,8 @@ private val MediumDateFormatter by lazy {
 }
 
 fun main() = application {
-    var selectedLaunch by remember { mutableStateOf<Launch.Doc?>(null) }
-
+    val scroll = rememberScrollState()
+    val tabState = remember { mutableStateOf(TabState.LATEST) }
     Window(
         onCloseRequest = ::exitApplication,
         title = "SpaceX Launch",
@@ -65,25 +66,68 @@ fun main() = application {
     ) {
         val launchState = SpaceXAPI.fetchAllLaunches().collectAsState(emptyList())
         MaterialTheme {
-            val sorted = launchState.value?.sortedByDescending { it.flightNumber } ?: emptyList()
-            Row(modifier = Modifier.fillMaxSize()) {
-                Box(Modifier.width(250.dp).fillMaxHeight().background(color = Color.LightGray)) {
-                    LazyColumn {
-                        items(sorted) { launch ->
-                            LaunchItem(launch) {
-                                selectedLaunch = it
-                            }
-                        }
+            Scaffold(
+                topBar = { TopAppBar(title = { Text("SpaceX Launch") }) }
+            ) {
+                Column {
+                    filterLaunchList(tabState, scroll)
+                    LaunchList(tabState, launchState)
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun filterLaunchList(tabState: MutableState<TabState>, scrollState: ScrollState) {
+    TabRow(selectedTabIndex = TabState.values().indexOf(tabState.value)) {
+        TabState.values().forEach {
+            Tab(
+                text = { Text(it.name) },
+                selected = tabState.value == it,
+                onClick = {
+                    tabState.value = it
+                    runBlocking {
+                        scrollState.scrollTo(0)
                     }
                 }
+            )
+        }
+    }
+}
 
-                Spacer(modifier = Modifier.width(1.dp).fillMaxHeight())
+@Composable
+fun LaunchList(
+    tabState: MutableState<TabState>,
+    launchState: State<List<Launch.Doc>?>,
+) {
+    var selectedLaunch by remember { mutableStateOf<Launch.Doc?>(null) }
+    val filter = when(tabState.value) {
+        TabState.LATEST -> launchState.value?.filter {
+            !it.upcoming
+        }
+        TabState.UPCOMING ->  launchState.value?.filter {
+            it.upcoming
+        }
+    }
 
-                Box(modifier = Modifier.fillMaxHeight()) {
-                    selectedLaunch?.let {
-                        LaunchDetailView(it)
+    val sorted = filter?.sortedByDescending { it.flightNumber } ?: emptyList()
+    Row(modifier = Modifier.fillMaxSize()) {
+        Box(modifier = Modifier.width(250.dp).fillMaxHeight().background(color = Color.LightGray)) {
+            LazyColumn {
+                items(sorted) { launch ->
+                    LaunchItem(launch) {
+                        selectedLaunch = it
                     }
                 }
+            }
+        }
+
+        Spacer(modifier = Modifier.width(1.dp).fillMaxHeight())
+
+        Box(modifier = Modifier.fillMaxHeight()) {
+            selectedLaunch?.let {
+                LaunchDetailView(it)
             }
         }
     }
