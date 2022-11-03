@@ -69,8 +69,8 @@ fun main() = application {
             Scaffold(
                 topBar = { TopAppBar(title = { Text("SpaceX Launch") }) }
             ) {
-                Column {
-                    filterLaunchList(tabState, scroll)
+                Column(modifier = Modifier.padding(it)) {
+                    FilterLaunchList(tabState, scroll)
                     LaunchList(tabState, launchState)
                 }
             }
@@ -79,7 +79,7 @@ fun main() = application {
 }
 
 @Composable
-fun filterLaunchList(tabState: MutableState<TabState>, scrollState: ScrollState) {
+fun FilterLaunchList(tabState: MutableState<TabState>, scrollState: ScrollState) {
     TabRow(selectedTabIndex = TabState.values().indexOf(tabState.value)) {
         TabState.values().forEach {
             Tab(
@@ -234,14 +234,14 @@ fun LaunchDetailView(launchDocs: Launch.Doc) {
 @Composable
 fun LaunchHeader(
     launchDoc: Launch.Doc,
-    iconModifier: Modifier = Modifier,
+    modifier: Modifier = Modifier,
 ) {
     Card {
         ListItem(
             icon = {
                 launchDoc.links.patch.small?.let {
                     fetchImage(it)?.let { it1 ->
-                        Image(it1, contentDescription = null, modifier = iconModifier.size(64.dp))
+                        Image(it1, contentDescription = null, modifier = modifier.size(64.dp))
                     }
                 }
             },

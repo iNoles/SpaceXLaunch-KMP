@@ -116,7 +116,6 @@ fun LaunchContent(modifier: Modifier = Modifier, onNavigateToDetail: (Int) -> Un
 
 @Composable
 fun LaunchListBody(
-    modifier: Modifier = Modifier,
     launchDocs: List<Launch.Doc>,
     onNavigateToDetail: (Int) -> Unit
 ) {
