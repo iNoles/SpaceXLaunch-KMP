@@ -35,7 +35,7 @@ dependencies {
     implementation(project(":shared"))
 
     implementation("io.coil-kt:coil-compose:2.2.2")
-    implementation("com.google.accompanist:accompanist-pager-indicators:0.27.1")
+    implementation("com.google.accompanist:accompanist-pager-indicators:0.28.0")
 
     val composeBom = platform("androidx.compose:compose-bom:2022.11.00")
     implementation (composeBom)
