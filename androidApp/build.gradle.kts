@@ -37,7 +37,7 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.2.2")
     implementation("com.google.accompanist:accompanist-pager-indicators:0.28.0")
 
-    val composeBom = platform("androidx.compose:compose-bom:2022.11.00")
+    val composeBom = platform("androidx.compose:compose-bom:2022.12.00")
     implementation (composeBom)
     androidTestImplementation (composeBom)
 
