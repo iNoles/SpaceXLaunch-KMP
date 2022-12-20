@@ -1,15 +1,43 @@
 //
-//  LaunchRow.swift
+//  LaunchDetail.swift
 //  iosApp
 //
-//  Created by Jonathan Steele on 10/28/22.
+//  Created by Jonathan Steele on 10/29/22.
 //  Copyright © 2022 orgName. All rights reserved.
 //
 
 import SwiftUI
 import shared
 
-struct LaunchRow: View {
+struct LaunchDetail: View {
+    var doc: Launch.Doc
+    
+    var body: some View {
+        NavigationStack {
+            List {
+                Section {
+                    LaunchHeader(doc: doc)
+                }
+                
+                Section("Payload") {
+                    let payloads = doc.payloads.first
+                    LaunchContent(title: "Reused", subtitle: payloads!.reused.description)
+                    LaunchContent(title: "Manufacturer", subtitle: payloads!.manufacturers.joined())
+                    LaunchContent(title: "Customer", subtitle: payloads!.customers.joined())
+                    LaunchContent(title: "Nationality", subtitle: payloads!.nationalities.joined())
+                    LaunchContent(title: "Orbit", subtitle: payloads!.orbit!)
+                    LaunchContent(title: "Periapsis", subtitle: payloads?.periapsisKm?.stringValue ?? "Unknown")
+                    LaunchContent(title: "Apoapsis", subtitle: payloads?.apoapsisKm?.stringValue ?? "Unknown")
+                    LaunchContent(title: "Inclination", subtitle: payloads?.inclinationDeg?.stringValue ?? "Unknown")
+                    LaunchContent(title: "Period", subtitle: payloads?.periodMin?.stringValue ?? "Unknown")
+                }
+            }
+            .listStyle(.inset)
+        }
+    }
+}
+
+struct LaunchHeader: View {
     var doc: Launch.Doc
     
     var body: some View {
@@ -19,20 +47,29 @@ struct LaunchRow: View {
                     image.image?.resizable().frame(width: 64, height: 64)
                 }
             }
-            
             VStack(alignment: .leading) {
-                HStack {
-                    Text(doc.name).font(.headline)
-                    Spacer()
-                    Text("#\(doc.flightNumber)")
-                }
+                Text(doc.name).font(.headline)
                 Text(Date(timeIntervalSince1970: TimeInterval(doc.dateUtc.epochSeconds)), style: .date).font(.subheadline)
+                Text(doc.launchpad.name).font(.subheadline)
             }
         }
     }
 }
 
-struct LaunchRow_Previews: PreviewProvider {
+struct LaunchContent: View {
+    var title: String
+    var subtitle: String
+    
+    var body: some View {
+        HStack {
+            Text(title).font(.headline)
+            Spacer()
+            Text(subtitle).font(.subheadline)
+        }
+    }
+}
+
+struct LaunchDetail_Previews: PreviewProvider {
     static var previews: some View {
         let doc = Launch.Doc(
             cores: [Launch.DocCore(
@@ -119,6 +156,6 @@ struct LaunchRow_Previews: PreviewProvider {
             upcoming: false,
             window: 0
         )
-        LaunchRow(doc: doc)
+        LaunchDetail(doc: doc)
     }
 }

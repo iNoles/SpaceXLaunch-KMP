@@ -1,18 +1,20 @@
 plugins {
     kotlin("multiplatform")
     id("com.android.library")
-    kotlin("plugin.serialization") version "1.7.21"
+    kotlin("plugin.serialization") version "1.7.20"
     id("com.rickclephas.kmp.nativecoroutines")
 }
 
 kotlin {
     jvm()
     android()
-    
+
     listOf(
         iosX64(),
         iosArm64(),
-        iosSimulatorArm64()
+        iosSimulatorArm64(),
+        macosX64(),
+        macosArm64()
     ).forEach {
         it.binaries.framework {
             baseName = "shared"
@@ -31,23 +33,43 @@ kotlin {
                 implementation(kotlin("test"))
             }
         }
-        val iosX64Main by getting
-        val iosArm64Main by getting
-        val iosSimulatorArm64Main by getting
-        val iosMain by creating {
+
+        val appleMain by creating {
             dependsOn(commonMain)
-            iosX64Main.dependsOn(this)
-            iosArm64Main.dependsOn(this)
-            iosSimulatorArm64Main.dependsOn(this)
         }
-        val iosX64Test by getting
-        val iosArm64Test by getting
-        val iosSimulatorArm64Test by getting
-        val iosTest by creating {
+        val appleTest by creating {
             dependsOn(commonTest)
-            iosX64Test.dependsOn(this)
-            iosArm64Test.dependsOn(this)
-            iosSimulatorArm64Test.dependsOn(this)
+        }
+        val iosX64Main by getting {
+            dependsOn(appleMain)
+        }
+        val iosArm64Main by getting {
+            dependsOn(appleMain)
+        }
+        val macosArm64Main by getting {
+            dependsOn(appleMain)
+        }
+        val macosX64Main by getting {
+            dependsOn(appleMain)
+        }
+        val iosSimulatorArm64Main by getting {
+            dependsOn(appleMain)
+        }
+
+        val iosX64Test by getting {
+            dependsOn(appleMain)
+        }
+        val iosArm64Test by getting {
+            dependsOn(appleMain)
+        }
+        val iosSimulatorArm64Test by getting {
+            dependsOn(appleTest)
+        }
+        val macosX64Test by getting {
+            dependsOn(appleTest)
+        }
+        val macosArm64Test by getting {
+            dependsOn(appleTest)
         }
     }
 }

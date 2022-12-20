@@ -23,7 +23,6 @@ import com.jonathansteele.spacexlaunch.Launch
 import com.jonathansteele.spacexlaunch.SpaceXAPI
 import com.jonathansteele.spacexlaunch.android.ui.theme.SpaceXLaunchTheme
 import kotlinx.datetime.Instant
-import kotlinx.datetime.toJavaInstant
 
 @Composable
 fun LaunchDetailScreen(id: Int?, onBackClick: () -> Unit) {
@@ -57,30 +56,17 @@ fun LaunchDetailBody(launchDoc: Launch.Doc, onBackClick: () -> Unit) {
                 LaunchHeader(launchDoc = launchDoc)
             }
 
+            item {
+                RocketCards(launchDoc = launchDoc)
+            }
+
             items(
                 items = launchDoc.payloads,
                 key = { payloads ->
                     payloads.id
                 }
             ) {
-                Text(text = "Payloads")
-                LaunchDetailContent(title = "Reused", subtitle = it.reused.toString())
-                LaunchDetailContent(title = "Manufacturer", subtitle = it.manufacturers.joinToString(","))
-                LaunchDetailContent(title = "Customer", subtitle = it.customers.joinToString(","))
-                LaunchDetailContent(title = "Nationality", subtitle = it.nationalities.joinToString(","))
-                LaunchDetailContent(title = "Orbit", subtitle = it.orbit.toString())
-
-                val periphrasis = it.periapsisKm?.toString() ?: "Unknown"
-                LaunchDetailContent(title = "Periapsis", subtitle = periphrasis)
-
-                val apoptosis = it.apoapsisKm?.toString() ?: "Unknown"
-                LaunchDetailContent(title = "Apoapsis", subtitle = apoptosis)
-
-                val inclination = it.inclinationDeg?.toString() ?: "Unknown"
-                LaunchDetailContent(title = "Inclination", subtitle = inclination)
-
-                val period = it.periodMin?.toString() ?: "Unknown"
-               LaunchDetailContent(title = "Period", subtitle = period)
+                PayloadCards(payload = it)
             }
         }
     }
@@ -100,10 +86,61 @@ fun LaunchHeader(
             },
             headlineText = { Text(launchDoc.name) },
             supportingText = {
-                LaunchDate(instant = launchDoc.dateUtc.toJavaInstant())
+                LaunchDate(instant = launchDoc.dateUtc)
                 Text(text = launchDoc.launchpad.name)
             },
         )
+    }
+}
+
+@Composable
+fun RocketCards(modifier: Modifier = Modifier, launchDoc: Launch.Doc) {
+    Card(modifier = modifier.padding(10.dp)) {
+        Text(text = "Rocket")
+        LaunchDetailContent(title = "Model", subtitle = launchDoc.rocket.name)
+        launchDoc.staticFireDateUtc?.let {
+            LaunchDetailContent(title = "Static Fire", subtitle = formattingJavaDate(it))
+        }
+        LaunchDetailContent(title = "Launch window", subtitle = launchDoc.window.toString())
+        LaunchDetailContent(title = "Launch success", subtitle = launchDoc.success.toString())
+        if (launchDoc.success == false) {
+            val firstFailure = launchDoc.failures.first()
+            LaunchDetailContent(title = "Failure Time", subtitle = firstFailure.time.toString())
+            LaunchDetailContent(title = "Failure Altitude", subtitle = firstFailure.altitude.toString())
+        }
+    }
+}
+
+@Composable
+fun PayloadCards(modifier: Modifier = Modifier, payload: Launch.Doc.Payload) {
+    Card(modifier = modifier.padding(10.dp)) {
+        Text(text = "Payloads")
+        LaunchDetailContent(title = "Reused", subtitle = payload.reused.toString())
+        LaunchDetailContent(
+            title = "Manufacturer",
+            subtitle = payload.manufacturers.joinToString(",")
+        )
+        LaunchDetailContent(
+            title = "Customer",
+            subtitle = payload.customers.joinToString(",")
+        )
+        LaunchDetailContent(
+            title = "Nationality",
+            subtitle = payload.nationalities.joinToString(",")
+        )
+        LaunchDetailContent(title = "Orbit", subtitle = payload.orbit.toString())
+
+        val periphrasis = payload.periapsisKm?.toString() ?: "Unknown"
+        LaunchDetailContent(title = "Periapsis", subtitle = periphrasis)
+
+        val apoptosis = payload.apoapsisKm?.toString() ?: "Unknown"
+        LaunchDetailContent(title = "Apoapsis", subtitle = apoptosis)
+
+        val inclination = payload.inclinationDeg?.toString() ?: "Unknown"
+        LaunchDetailContent(title = "Inclination", subtitle = inclination)
+
+        val period = payload.periodMin?.toString() ?: "Unknown"
+        LaunchDetailContent(title = "Period", subtitle = period)
     }
 }
 

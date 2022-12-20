@@ -19,3 +19,5 @@ rootProject.name = "SpaceXLaunch"
 include(":androidApp")
 include(":shared")
 include(":compose-desktop")
+include(":compose-ios")
+include(":sharedUI")

@@ -120,14 +120,13 @@ object SpaceXAPI {
             url = "https://api.spacexdata.com/v5/launches/query",
             body = launches,
             headers = mapOf("Content-Type" to "application/json; charset=utf-8")
-        )
-            .toJson(json = json,
-                deserializationStrategy = Launch.serializer())
-            .onSuccess {
-                emit(it?.docs)
-            }
-            .onFailure {
-                log("SpaceXAPI", "Couldn't get Launches", it)
-            }
+        ).toJson(
+            json = json,
+            deserializationStrategy = Launch.serializer()
+        ).onSuccess {
+            emit(it?.docs)
+        }.onFailure {
+            log("SpaceXAPI", "Couldn't get Launches", it)
+        }
     }
 }

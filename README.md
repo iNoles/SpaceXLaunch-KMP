@@ -4,6 +4,7 @@
 * Android (Jetpack Compose)
 * iOS (SwiftUI)
 * Desktop (Compose for Desktop)
+* macOS (SwiftUI)
 
 It makes use of [SpaceX API](https://github.com/r-spacex/SpaceX-API) to show list of past and
 upcoming launch.

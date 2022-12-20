@@ -12,8 +12,8 @@ import KMPNativeCoroutinesAsync
 
 struct LaunchList: View {
     @State private var selectorIndex = 0
-    @State private var titles = ["Latest", "Upcoming"]
     @State private var launchDocs = [Launch.Doc]()
+    private let titles = ["Latest", "Upcoming"]
     
     var body: some View {
         NavigationStack {

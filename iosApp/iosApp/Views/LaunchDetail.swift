@@ -142,7 +142,6 @@ struct LaunchDetail_Previews: PreviewProvider {
                 inclinationDeg: 39.0,
                 manufacturers: ["SSTL"],
                 massKg: 20.0,
-                name: "FalconSAT-2",
                 nationalities: ["United States"],
                 orbit: "LEO",
                 periapsisKm: 400.0,

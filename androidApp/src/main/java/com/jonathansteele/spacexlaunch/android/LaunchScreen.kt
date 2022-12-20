@@ -31,16 +31,6 @@ import com.jonathansteele.spacexlaunch.SpaceXAPI
 import com.jonathansteele.spacexlaunch.android.ui.theme.SpaceXLaunchTheme
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Instant
-import kotlinx.datetime.toJavaInstant
-import java.time.ZoneId
-import java.time.format.DateTimeFormatter
-import java.time.format.FormatStyle
-
-private val MediumDateFormatter by lazy {
-    DateTimeFormatter
-        .ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)
-        .withZone(ZoneId.systemDefault())
-}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -148,15 +138,15 @@ fun LaunchItem(
                 LaunchPatchImage(urlString = launchDocs.links.patch.small, iconModifier.size(64.dp))
             },
             headlineText = { Text(text = launchDocs.name) },
-            supportingText = { LaunchDate(instant = launchDocs.dateUtc.toJavaInstant()) },
+            supportingText = { LaunchDate(instant = launchDocs.dateUtc) },
             trailingContent = { Text("# ${launchDocs.flightNumber}") }
         )
     }
 }
 
 @Composable
-fun LaunchDate(instant: java.time.Instant) {
-    Text(text = MediumDateFormatter.format(instant))
+fun LaunchDate(instant: Instant) {
+    Text(text = formattingJavaDate(instant))
 }
 
 @Composable
