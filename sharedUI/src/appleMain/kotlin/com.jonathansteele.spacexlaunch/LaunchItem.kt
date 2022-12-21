@@ -9,21 +9,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import kotlinx.datetime.toNSDate
-import platform.Foundation.NSDate
-import platform.Foundation.NSDateFormatter
-import platform.Foundation.NSDateFormatterMediumStyle
-import platform.Foundation.NSDateFormatterShortStyle
-import platform.Foundation.NSTimeZone
-import platform.Foundation.systemTimeZone
-
-private val MediumDateFormatter by lazy {
-    val formatter = NSDateFormatter()
-    formatter.dateStyle = NSDateFormatterMediumStyle
-    formatter.timeStyle = NSDateFormatterShortStyle
-    formatter.timeZone = NSTimeZone.systemTimeZone
-    formatter
-}
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -43,15 +28,10 @@ actual fun LaunchItem(
                 }
             },*/
             text = { Text(text = launchDocs.name) },
-            secondaryText = { LaunchDate(nsDate = launchDocs.dateUtc.toNSDate()) },
+            secondaryText = { LaunchDate(instant = launchDocs.dateUtc) },
             trailing = { Text("# ${launchDocs.flightNumber}") }
         )
     }
-}
-
-@Composable
-fun LaunchDate(nsDate: NSDate) {
-    Text(text = MediumDateFormatter.stringFromDate(nsDate))
 }
 
 /*@Composable

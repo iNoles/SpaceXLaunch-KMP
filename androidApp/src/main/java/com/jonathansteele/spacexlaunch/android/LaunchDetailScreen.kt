@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Card
@@ -14,6 +13,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
@@ -21,6 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.jonathansteele.spacexlaunch.Launch
 import com.jonathansteele.spacexlaunch.SpaceXAPI
+import com.jonathansteele.spacexlaunch.android.ui.SpaceXBackground
 import com.jonathansteele.spacexlaunch.android.ui.theme.SpaceXLaunchTheme
 import kotlinx.datetime.Instant
 
@@ -39,16 +40,17 @@ fun LaunchDetailScreen(id: Int?, onBackClick: () -> Unit) {
 @Composable
 fun LaunchDetailBody(launchDoc: Launch.Doc, onBackClick: () -> Unit) {
     Scaffold(
-        topBar = { CenterAlignedTopAppBar(
-            navigationIcon = {
-                IconButton(onClick = onBackClick) {
-                    Icon(
-                        imageVector = Icons.Filled.ArrowBack,
-                        contentDescription = "Pop Back Navigation Stack"
-                    )
-                }
-            },
-            title = { Text(text = launchDoc.name) })
+        topBar = {
+            CenterAlignedTopAppBar(
+                navigationIcon = {
+                    IconButton(onClick = onBackClick) {
+                        Icon(
+                            imageVector = Icons.Filled.ArrowBack,
+                            contentDescription = "Pop Back Navigation Stack"
+                        )
+                    }
+                },
+                title = { Text(text = launchDoc.name) })
         }
     ) { paddingValues ->
         LazyColumn(modifier = Modifier.padding(paddingValues)) {
@@ -98,15 +100,15 @@ fun RocketCards(modifier: Modifier = Modifier, launchDoc: Launch.Doc) {
     Card(modifier = modifier.padding(10.dp)) {
         Text(text = "Rocket")
         LaunchDetailContent(title = "Model", subtitle = launchDoc.rocket.name)
-        launchDoc.staticFireDateUtc?.let {
-            LaunchDetailContent(title = "Static Fire", subtitle = formattingJavaDate(it))
-        }
         LaunchDetailContent(title = "Launch window", subtitle = launchDoc.window.toString())
         LaunchDetailContent(title = "Launch success", subtitle = launchDoc.success.toString())
         if (launchDoc.success == false) {
             val firstFailure = launchDoc.failures.first()
             LaunchDetailContent(title = "Failure Time", subtitle = firstFailure.time.toString())
-            LaunchDetailContent(title = "Failure Altitude", subtitle = firstFailure.altitude.toString())
+            LaunchDetailContent(
+                title = "Failure Altitude",
+                subtitle = firstFailure.altitude.toString()
+            )
         }
     }
 }
@@ -249,6 +251,8 @@ fun LaunchDetailScreenPreview() {
         id = "5eb87cd9ffd86e000604b32a"
     )
     SpaceXLaunchTheme {
-        LaunchDetailBody(launchDoc = launchDocs, onBackClick = {})
+        SpaceXBackground {
+            LaunchDetailBody(launchDoc = launchDocs, onBackClick = {})
+        }
     }
 }

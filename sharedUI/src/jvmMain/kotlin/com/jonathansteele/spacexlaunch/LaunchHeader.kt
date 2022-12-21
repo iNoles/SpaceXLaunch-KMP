@@ -9,7 +9,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import kotlinx.datetime.toJavaInstant
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -28,7 +27,7 @@ actual fun LaunchHeader(
             },
             text = { launchDoc?.name?.let { Text(text = it) } },
             secondaryText = {
-                launchDoc?.dateUtc?.toJavaInstant()?.let { LaunchDate(instant = it) }
+                launchDoc?.dateUtc?.let { LaunchDate(instant = it) }
             },
         )
     }

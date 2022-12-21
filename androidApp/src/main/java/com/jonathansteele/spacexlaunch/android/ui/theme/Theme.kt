@@ -1,6 +1,21 @@
+/*
+ * Copyright 2022 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.jonathansteele.spacexlaunch.android.ui.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
@@ -9,104 +24,209 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
-import androidx.compose.ui.graphics.toArgb
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalView
-import androidx.core.view.WindowCompat
+import androidx.compose.ui.unit.dp
 
-private val LightColorScheme = lightColorScheme(
-    primary = md_theme_light_primary,
-    onPrimary = md_theme_light_onPrimary,
-    primaryContainer = md_theme_light_primaryContainer,
-    onPrimaryContainer = md_theme_light_onPrimaryContainer,
-    secondary = md_theme_light_secondary,
-    onSecondary = md_theme_light_onSecondary,
-    secondaryContainer = md_theme_light_secondaryContainer,
-    onSecondaryContainer = md_theme_light_onSecondaryContainer,
-    tertiary = md_theme_light_tertiary,
-    onTertiary = md_theme_light_onTertiary,
-    tertiaryContainer = md_theme_light_tertiaryContainer,
-    onTertiaryContainer = md_theme_light_onTertiaryContainer,
-    error = md_theme_light_error,
-    onError = md_theme_light_onError,
-    errorContainer = md_theme_light_errorContainer,
-    onErrorContainer = md_theme_light_onErrorContainer,
-    outline = md_theme_light_outline,
-    background = md_theme_light_background,
-    onBackground = md_theme_light_onBackground,
-    surface = md_theme_light_surface,
-    onSurface = md_theme_light_onSurface,
-    surfaceVariant = md_theme_light_surfaceVariant,
-    onSurfaceVariant = md_theme_light_onSurfaceVariant,
-    inverseSurface = md_theme_light_inverseSurface,
-    inverseOnSurface = md_theme_light_inverseOnSurface,
-    inversePrimary = md_theme_light_inversePrimary,
-    surfaceTint = md_theme_light_surfaceTint,
-    outlineVariant = md_theme_light_outlineVariant,
-    scrim = md_theme_light_scrim,
+/**
+ * Light default theme color scheme
+ */
+val LightDefaultColorScheme = lightColorScheme(
+    primary = Purple40,
+    onPrimary = Color.White,
+    primaryContainer = Purple90,
+    onPrimaryContainer = Purple10,
+    secondary = Orange40,
+    onSecondary = Color.White,
+    secondaryContainer = Orange90,
+    onSecondaryContainer = Orange10,
+    tertiary = Blue40,
+    onTertiary = Color.White,
+    tertiaryContainer = Blue90,
+    onTertiaryContainer = Blue10,
+    error = Red40,
+    onError = Color.White,
+    errorContainer = Red90,
+    onErrorContainer = Red10,
+    background = DarkPurpleGray99,
+    onBackground = DarkPurpleGray10,
+    surface = DarkPurpleGray99,
+    onSurface = DarkPurpleGray10,
+    surfaceVariant = PurpleGray90,
+    onSurfaceVariant = PurpleGray30,
+    outline = PurpleGray50
 )
 
-private val DarkColorScheme = darkColorScheme(
-    primary = md_theme_dark_primary,
-    onPrimary = md_theme_dark_onPrimary,
-    primaryContainer = md_theme_dark_primaryContainer,
-    onPrimaryContainer = md_theme_dark_onPrimaryContainer,
-    secondary = md_theme_dark_secondary,
-    onSecondary = md_theme_dark_onSecondary,
-    secondaryContainer = md_theme_dark_secondaryContainer,
-    onSecondaryContainer = md_theme_dark_onSecondaryContainer,
-    tertiary = md_theme_dark_tertiary,
-    onTertiary = md_theme_dark_onTertiary,
-    tertiaryContainer = md_theme_dark_tertiaryContainer,
-    onTertiaryContainer = md_theme_dark_onTertiaryContainer,
-    error = md_theme_dark_error,
-    onError = md_theme_dark_onError,
-    errorContainer = md_theme_dark_errorContainer,
-    onErrorContainer = md_theme_dark_onErrorContainer,
-    outline = md_theme_dark_outline,
-    background = md_theme_dark_background,
-    onBackground = md_theme_dark_onBackground,
-    surface = md_theme_dark_surface,
-    onSurface = md_theme_dark_onSurface,
-    surfaceVariant = md_theme_dark_surfaceVariant,
-    onSurfaceVariant = md_theme_dark_onSurfaceVariant,
-    inverseSurface = md_theme_dark_inverseSurface,
-    inverseOnSurface = md_theme_dark_inverseOnSurface,
-    inversePrimary = md_theme_dark_inversePrimary,
-    surfaceTint = md_theme_dark_surfaceTint,
-    outlineVariant = md_theme_dark_outlineVariant,
-    scrim = md_theme_dark_scrim,
+/**
+ * Dark default theme color scheme
+ */
+val DarkDefaultColorScheme = darkColorScheme(
+    primary = Purple80,
+    onPrimary = Purple20,
+    primaryContainer = Purple30,
+    onPrimaryContainer = Purple90,
+    secondary = Orange80,
+    onSecondary = Orange20,
+    secondaryContainer = Orange30,
+    onSecondaryContainer = Orange90,
+    tertiary = Blue80,
+    onTertiary = Blue20,
+    tertiaryContainer = Blue30,
+    onTertiaryContainer = Blue90,
+    error = Red80,
+    onError = Red20,
+    errorContainer = Red30,
+    onErrorContainer = Red90,
+    background = DarkPurpleGray10,
+    onBackground = DarkPurpleGray90,
+    surface = DarkPurpleGray10,
+    onSurface = DarkPurpleGray90,
+    surfaceVariant = PurpleGray30,
+    onSurfaceVariant = PurpleGray80,
+    outline = PurpleGray60
 )
 
+/**
+ * Light Android theme color scheme
+ */
+val LightAndroidColorScheme = lightColorScheme(
+    primary = Green40,
+    onPrimary = Color.White,
+    primaryContainer = Green90,
+    onPrimaryContainer = Green10,
+    secondary = DarkGreen40,
+    onSecondary = Color.White,
+    secondaryContainer = DarkGreen90,
+    onSecondaryContainer = DarkGreen10,
+    tertiary = Teal40,
+    onTertiary = Color.White,
+    tertiaryContainer = Teal90,
+    onTertiaryContainer = Teal10,
+    error = Red40,
+    onError = Color.White,
+    errorContainer = Red90,
+    onErrorContainer = Red10,
+    background = DarkGreenGray99,
+    onBackground = DarkGreenGray10,
+    surface = DarkGreenGray99,
+    onSurface = DarkGreenGray10,
+    surfaceVariant = GreenGray90,
+    onSurfaceVariant = GreenGray30,
+    outline = GreenGray50
+)
+
+/**
+ * Dark Android theme color scheme
+ */
+val DarkAndroidColorScheme = darkColorScheme(
+    primary = Green80,
+    onPrimary = Green20,
+    primaryContainer = Green30,
+    onPrimaryContainer = Green90,
+    secondary = DarkGreen80,
+    onSecondary = DarkGreen20,
+    secondaryContainer = DarkGreen30,
+    onSecondaryContainer = DarkGreen90,
+    tertiary = Teal80,
+    onTertiary = Teal20,
+    tertiaryContainer = Teal30,
+    onTertiaryContainer = Teal90,
+    error = Red80,
+    onError = Red20,
+    errorContainer = Red30,
+    onErrorContainer = Red90,
+    background = DarkGreenGray10,
+    onBackground = DarkGreenGray90,
+    surface = DarkGreenGray10,
+    onSurface = DarkGreenGray90,
+    surfaceVariant = GreenGray30,
+    onSurfaceVariant = GreenGray80,
+    outline = GreenGray60
+)
+
+/**
+ * Light default gradient colors
+ */
+val LightDefaultGradientColors = GradientColors(
+    primary = Purple95,
+    secondary = Orange95,
+    tertiary = Blue95,
+    neutral = DarkPurpleGray95
+)
+
+/**
+ * Light Android background theme
+ */
+val LightAndroidBackgroundTheme = BackgroundTheme(color = DarkGreenGray95)
+
+/**
+ * Dark Android background theme
+ */
+val DarkAndroidBackgroundTheme = BackgroundTheme(color = Color.Black)
+
+/**
+ * KnightsFootball theme.
+ *
+ * The order of precedence for the color scheme is: Dynamic color > Android theme > Default theme.
+ * Dark theme is independent as all the aforementioned color schemes have light and dark versions.
+ * The default theme color scheme is used by default.
+ *
+ * @param darkTheme Whether the theme should use a dark color scheme (follows system by default).
+ * @param dynamicColor Whether the theme should use a dynamic color scheme (Android 12+ only).
+ * @param androidTheme Whether the theme should use the Android theme color scheme.
+ */
 @Composable
 fun SpaceXLaunchTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false,
+    androidTheme: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+        dynamicColor -> {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                val context = LocalContext.current
+                if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+            } else {
+                if (darkTheme) DarkDefaultColorScheme else LightDefaultColorScheme
+            }
         }
-
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
-    }
-    val view = LocalView.current
-    if (!view.isInEditMode) {
-        SideEffect {
-            val window = (view.context as Activity).window
-            window.statusBarColor = colorScheme.primary.toArgb()
-            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
-        }
+        androidTheme -> if (darkTheme) DarkAndroidColorScheme else LightAndroidColorScheme
+        else -> if (darkTheme) DarkDefaultColorScheme else LightDefaultColorScheme
     }
 
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = Typography,
-        content = content
+    val defaultGradientColors = GradientColors()
+    val gradientColors = when {
+        dynamicColor -> {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                defaultGradientColors
+            } else {
+                if (darkTheme) defaultGradientColors else LightDefaultGradientColors
+            }
+        }
+        androidTheme -> defaultGradientColors
+        else -> if (darkTheme) defaultGradientColors else LightDefaultGradientColors
+    }
+
+    val defaultBackgroundTheme = BackgroundTheme(
+        color = colorScheme.surface,
+        tonalElevation = 2.dp
     )
+    val backgroundTheme = when {
+        dynamicColor -> defaultBackgroundTheme
+        androidTheme -> if (darkTheme) DarkAndroidBackgroundTheme else LightAndroidBackgroundTheme
+        else -> defaultBackgroundTheme
+    }
+
+    CompositionLocalProvider(
+        LocalGradientColors provides gradientColors,
+        LocalBackgroundTheme provides backgroundTheme
+    ) {
+        MaterialTheme(
+            colorScheme = colorScheme,
+            typography = SpaceXTypography,
+            content = content
+        )
+    }
 }

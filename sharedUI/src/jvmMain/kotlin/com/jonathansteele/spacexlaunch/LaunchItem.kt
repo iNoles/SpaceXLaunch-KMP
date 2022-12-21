@@ -20,23 +20,13 @@ import androidx.compose.ui.graphics.toComposeImageBitmap
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import kotlinx.datetime.toJavaInstant
 import org.jetbrains.skia.Image
 import java.awt.image.BufferedImage
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
 import java.net.HttpURLConnection
 import java.net.URL
-import java.time.ZoneId
-import java.time.format.DateTimeFormatter
-import java.time.format.FormatStyle
 import javax.imageio.ImageIO
-
-private val MediumDateFormatter by lazy {
-    DateTimeFormatter
-        .ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)
-        .withZone(ZoneId.systemDefault())
-}
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -59,15 +49,10 @@ actual fun LaunchItem(
                 }
             },
             text = { Text(text = launchDocs.name) },
-            secondaryText = { LaunchDate(instant = launchDocs.dateUtc.toJavaInstant()) },
+            secondaryText = { LaunchDate(instant = launchDocs.dateUtc) },
             trailing = { Text("# ${launchDocs.flightNumber}") }
         )
     }
-}
-
-@Composable
-fun LaunchDate(instant: java.time.Instant) {
-    Text(text = MediumDateFormatter.format(instant))
 }
 
 @Composable

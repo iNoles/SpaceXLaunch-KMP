@@ -6,7 +6,6 @@ import androidx.compose.material.ListItem
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import kotlinx.datetime.toNSDate
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -25,7 +24,7 @@ actual fun LaunchHeader(
             },*/
             text = { launchDoc?.name?.let { Text(text = it) } },
             secondaryText = {
-                launchDoc?.dateUtc?.toNSDate()?.let { LaunchDate(nsDate = it) }
+                launchDoc?.dateUtc?.let { LaunchDate(instant = it) }
             },
         )
     }
