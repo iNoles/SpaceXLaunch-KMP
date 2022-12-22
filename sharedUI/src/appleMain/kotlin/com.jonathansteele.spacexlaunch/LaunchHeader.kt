@@ -1,16 +1,16 @@
 package com.jonathansteele.spacexlaunch
 
-import androidx.compose.material.Card
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.ListItem
-import androidx.compose.material.Text
+import androidx.compose.material3.Card
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ListItem
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
-@OptIn(ExperimentalMaterialApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 actual fun LaunchHeader(
-    launchDoc: Launch.Doc?,
+    launchDoc: Launch.Doc,
     modifier: Modifier,
 ) {
     Card {
@@ -22,9 +22,10 @@ actual fun LaunchHeader(
                     }
                 }
             },*/
-            text = { launchDoc?.name?.let { Text(text = it) } },
-            secondaryText = {
-                launchDoc?.dateUtc?.let { LaunchDate(instant = it) }
+            headlineText = { Text(text = launchDoc.name) },
+            supportingText = {
+                LaunchDate(instant = launchDoc.dateUtc)
+
             },
         )
     }

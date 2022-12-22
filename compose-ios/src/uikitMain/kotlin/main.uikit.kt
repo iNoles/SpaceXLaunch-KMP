@@ -1,5 +1,5 @@
 import androidx.compose.ui.window.Application
-import com.jonathansteele.spacexlaunch.SpaceXLaunchView
+import com.jonathansteele.spacexlaunch.SpaceXLaunchViewWithTheme
 import kotlinx.cinterop.autoreleasepool
 import kotlinx.cinterop.cstr
 import kotlinx.cinterop.memScoped
@@ -40,7 +40,7 @@ class SpaceXAppDelegate @OverrideInit constructor() : UIResponder(), UIApplicati
     ): Boolean {
         window = UIWindow(frame = UIScreen.mainScreen.bounds)
         window!!.rootViewController = Application("SpaceXLaunch") {
-            SpaceXLaunchView()
+            SpaceXLaunchViewWithTheme()
         }
         window!!.makeKeyAndVisible()
         return true

@@ -1,7 +1,7 @@
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
-import com.jonathansteele.spacexlaunch.SpaceXLaunchView
+import com.jonathansteele.spacexlaunch.SpaceXLaunchViewWithTheme
 
 fun main() = application {
     Window(
@@ -9,6 +9,6 @@ fun main() = application {
         title = "SpaceX Launch",
         state = rememberWindowState()
     ) {
-        SpaceXLaunchView()
+        SpaceXLaunchViewWithTheme()
     }
 }

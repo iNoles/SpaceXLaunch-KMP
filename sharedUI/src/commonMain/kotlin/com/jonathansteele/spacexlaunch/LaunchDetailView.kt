@@ -5,49 +5,89 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Card
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.ListItem
-import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.Card
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.ListItem
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LaunchDetailView(launchDocs: Launch.Doc?) {
-    LazyColumn(
-        modifier = Modifier.padding(16.dp).fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        item {
-            LaunchHeader(launchDocs)
-        }
-
-        item {
-            RocketCards(launchDoc = launchDocs)
-        }
-
-        items(
-            items = launchDocs?.payloads ?: emptyList(),
-            key = { payloads ->
-                payloads.id
+fun LaunchDetailView(
+    launchDocs: Launch.Doc?,
+    selectedLaunch: MutableState<Launch.Doc?>,
+    navigationEnabled: Boolean = true
+) {
+    if (navigationEnabled) {
+        Scaffold(
+            topBar = {
+                CenterAlignedTopAppBar(
+                    navigationIcon = {
+                        IconButton(onClick = {
+                            selectedLaunch.value = null
+                        }) {
+                            Icon(
+                                imageVector = Icons.Filled.ArrowBack,
+                                contentDescription = "Pop Back Navigation Stack"
+                            )
+                        }
+                    },
+                    title = { Text(launchDocs?.name ?: "") }
+                )
             }
         ) {
-            PayloadCards(payload = it)
+            LaunchDetailListView(launchDocs, modifier = Modifier.padding(it))
         }
+    } else {
+        LaunchDetailListView(launchDocs)
     }
+}
+@Composable
+fun LaunchDetailListView(launchDocs: Launch.Doc?, modifier: Modifier = Modifier) {
+    launchDocs?.let {
+        LazyColumn (
+            modifier = modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            item {
+                LaunchHeader(it)
+            }
+
+            item {
+                RocketCards(launchDoc = it)
+            }
+
+            items(
+                items = launchDocs.payloads,
+                key = { payloads ->
+                    payloads.id
+                }
+            ) {
+                PayloadCards(payload = it)
+            }
+        }
+    } ?: Text("Select a launch")
 }
 
 @Composable
-fun RocketCards(modifier: Modifier = Modifier, launchDoc: Launch.Doc?) {
+fun RocketCards(modifier: Modifier = Modifier, launchDoc: Launch.Doc) {
     Card(modifier = modifier.padding(10.dp)) {
         Column {
             Text(text = "Rocket")
-            launchDoc?.rocket?.name?.let { LaunchDetailContent(title = "Model", subtitle = it) }
-            LaunchDetailContent(title = "Launch window", subtitle = launchDoc?.window.toString())
-            LaunchDetailContent(title = "Launch success", subtitle = launchDoc?.success.toString())
-            if (launchDoc?.success == false) {
+            LaunchDetailContent(title = "Model", subtitle = launchDoc.rocket.name)
+            LaunchDetailContent(title = "Launch window", subtitle = launchDoc.window.toString())
+            LaunchDetailContent(title = "Launch success", subtitle = launchDoc.success.toString())
+            if (launchDoc.success == false) {
                 val firstFailure = launchDoc.failures.first()
                 LaunchDetailContent(title = "Failure Time", subtitle = firstFailure.time.toString())
                 LaunchDetailContent(
@@ -94,11 +134,11 @@ fun PayloadCards(modifier: Modifier = Modifier, payload: Launch.Doc.Payload) {
     }
 }
 
-@OptIn(ExperimentalMaterialApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LaunchDetailContent(title: String, subtitle: String) {
     ListItem(
-        text = { Text(text = title) },
-        trailing = { Text(text = subtitle) }
+        headlineText = { Text(text = title) },
+        trailingContent = { Text(text = subtitle) }
     )
 }

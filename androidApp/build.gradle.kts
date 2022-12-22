@@ -32,21 +32,13 @@ android {
 }
 
 dependencies {
-    implementation(project(":shared"))
+    implementation(project(":sharedUI"))
 
     implementation("io.coil-kt:coil-compose:2.2.2")
-    implementation("com.google.accompanist:accompanist-pager-indicators:0.28.0")
 
     val composeBom = platform("androidx.compose:compose-bom:2022.12.00")
     implementation (composeBom)
     androidTestImplementation (composeBom)
-
-    implementation("androidx.compose.material3:material3")
-    // or skip Material Design and build directly on top of foundational components
-    implementation("androidx.compose.foundation:foundation")
-    // or only import the main APIs for the underlying toolkit systems,
-    // such as input and measurement/layout
-    implementation("androidx.compose.ui:ui")
 
     // Android Studio Preview support
     implementation("androidx.compose.ui:ui-tooling-preview")
@@ -54,6 +46,4 @@ dependencies {
 
     // Optional - Integration with activities
     implementation("androidx.activity:activity-compose:1.6.1")
-
-    implementation("androidx.navigation:navigation-compose:2.5.3")
 }

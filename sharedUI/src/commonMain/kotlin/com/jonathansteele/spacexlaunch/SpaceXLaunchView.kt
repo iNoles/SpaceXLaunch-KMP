@@ -11,12 +11,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Tab
-import androidx.compose.material.TabRow
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Tab
+import androidx.compose.material3.TabRow
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
@@ -28,15 +29,20 @@ import androidx.compose.ui.Modifier
 import kotlinx.coroutines.runBlocking
 
 @Composable
-fun SpaceXLaunchView() {
+fun SpaceXLaunchViewWithTheme() {
     MaterialTheme {
-        val selectedLaunch: MutableState<Launch.Doc?> = remember { mutableStateOf(null) }
-        BoxWithConstraints {
-            if (maxWidth.value > 1000) {
-                TwoColumnsLayout(selectedLaunch)
-            } else {
-                SingleColumnLayout(selectedLaunch)
-            }
+        SpaceXLaunchView()
+    }
+}
+
+@Composable
+fun SpaceXLaunchView() {
+    val selectedLaunch: MutableState<Launch.Doc?> = remember { mutableStateOf(null) }
+    BoxWithConstraints {
+        if (maxWidth.value > 1000) {
+            TwoColumnsLayout(selectedLaunch)
+        } else {
+            SingleColumnLayout(selectedLaunch)
         }
     }
 }
@@ -44,7 +50,7 @@ fun SpaceXLaunchView() {
 @Composable
 fun SingleColumnLayout(selectedLaunch: MutableState<Launch.Doc?>) {
     selectedLaunch.value?.let {
-        LaunchDetailView(it)
+        LaunchDetailView(it, selectedLaunch)
     } ?: LaunchList(selectedLaunch)
 }
 
@@ -54,10 +60,11 @@ fun TwoColumnsLayout(selectedLaunch: MutableState<Launch.Doc?>) {
         Box(modifier = Modifier.fillMaxWidth(0.4f), contentAlignment = Alignment.Center) {
             LaunchList(selectedLaunch)
         }
-        LaunchDetailView(selectedLaunch.value)
+        LaunchDetailView(selectedLaunch.value, selectedLaunch, false)
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LaunchList(selectedLaunch: MutableState<Launch.Doc?>) {
     val scroll = rememberScrollState()
@@ -65,7 +72,7 @@ fun LaunchList(selectedLaunch: MutableState<Launch.Doc?>) {
     val launchState = SpaceXAPI.fetchAllLaunches().collectAsState(emptyList())
     Column {
         Scaffold(
-            topBar = { TopAppBar(title = { Text("SpaceX Launch") }) }
+            topBar = { CenterAlignedTopAppBar(title = { Text("SpaceX Launch") }) }
         ) {
             Column(modifier = Modifier.padding(it)) {
                 FilterTabs(tabState, scroll)

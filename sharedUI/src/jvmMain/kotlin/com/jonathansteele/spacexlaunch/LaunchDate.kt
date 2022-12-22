@@ -1,6 +1,6 @@
 package com.jonathansteele.spacexlaunch
 
-import androidx.compose.material.Text
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import kotlinx.datetime.Instant
 import kotlinx.datetime.toJavaInstant
