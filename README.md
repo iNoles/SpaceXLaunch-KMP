@@ -13,11 +13,11 @@ upcoming launch.
 ### Screenshots
 **iOS (SwiftUI)**
 <br />
-<img width="546" alt="ios main" src="https://raw.githubusercontent.com/iNoles/SpaceXLaunch/blob/main/screenshots/ios-main.png">
+<img width="546" alt="ios main" src="https://raw.githubusercontent.com/iNoles/SpaceXLaunch/main/screenshots/ios-main.png">
 
 **Android (Jetpack Compose)**
 <br />
-<img width="1052" alt="android main" src="https://raw.githubusercontent.com/iNoles/SpaceXLaunch/blob/main/screenshots/android-main.png">
+<img width="1052" alt="android main" src="https://raw.githubusercontent.com/iNoles/SpaceXLaunch/main/screenshots/android-main.png">
 
 **Compose for Desktop**
 <br/>
