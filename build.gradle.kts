@@ -5,7 +5,7 @@ plugins {
     kotlin("android") version "1.7.20" apply false
     kotlin("multiplatform") version "1.7.20" apply false
     id("com.rickclephas.kmp.nativecoroutines") version "0.13.1" apply false
-    id("org.jetbrains.compose") version "1.3.0-rc01" apply false
+    id("org.jetbrains.compose") version "1.3.0-rc02" apply false
 }
 
 tasks.register("clean", Delete::class) {
