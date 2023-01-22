@@ -21,15 +21,24 @@ struct LaunchDetail: View {
                 
                 Section("Payload") {
                     let payloads = doc.payloads.first
-                    LaunchContent(title: "Reused", subtitle: payloads!.reused.description)
-                    LaunchContent(title: "Manufacturer", subtitle: payloads!.manufacturers.joined())
+                    LaunchContent(title: "Reused", subtitle: payloads?.reused.description ?? "Unknown")
+                    LaunchContent(title: "Manufacturer", subtitle: payloads?.manufacturers.joined() ?? "Unknown")
                     LaunchContent(title: "Customer", subtitle: payloads!.customers.joined())
-                    LaunchContent(title: "Nationality", subtitle: payloads!.nationalities.joined())
-                    LaunchContent(title: "Orbit", subtitle: payloads!.orbit!)
+                    LaunchContent(title: "Nationality", subtitle: payloads?.nationalities.joined() ?? "Unknown")
+                    LaunchContent(title: "Orbit", subtitle: payloads?.orbit ?? "Unknown")
                     LaunchContent(title: "Periapsis", subtitle: payloads?.periapsisKm?.stringValue ?? "Unknown")
                     LaunchContent(title: "Apoapsis", subtitle: payloads?.apoapsisKm?.stringValue ?? "Unknown")
                     LaunchContent(title: "Inclination", subtitle: payloads?.inclinationDeg?.stringValue ?? "Unknown")
                     LaunchContent(title: "Period", subtitle: payloads?.periodMin?.stringValue ?? "Unknown")
+                }
+                Section("Rocket") {
+                    LaunchContent(title: "Model", subtitle: doc.rocket.name)
+                    LaunchContent(title: "Launch Window", subtitle: doc.window?.description ?? "Unknown")
+                    if doc.success?.stringValue == "1" {
+                        LaunchContent(title: "Launch Success", subtitle: "true")
+                    } else {
+                        LaunchContent(title: "Launch Success", subtitle: "false")
+                    }
                 }
             }
             .listStyle(.inset)

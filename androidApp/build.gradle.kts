@@ -17,9 +17,9 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.3.2"
+        kotlinCompilerExtensionVersion = "1.4.0"
     }
-    packagingOptions {
+    packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
@@ -29,6 +29,10 @@ android {
             isMinifyEnabled = false
         }
     }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
 }
 
 dependencies {
@@ -36,13 +40,9 @@ dependencies {
 
     implementation("io.coil-kt:coil-compose:2.2.2")
 
-    val composeBom = platform("androidx.compose:compose-bom:2023.01.00")
-    implementation (composeBom)
-    androidTestImplementation (composeBom)
-
     // Android Studio Preview support
-    implementation("androidx.compose.ui:ui-tooling-preview")
-    debugImplementation("androidx.compose.ui:ui-tooling")
+    implementation("androidx.compose.ui:ui-tooling-preview:1.3.3")
+    debugImplementation("androidx.compose.ui:ui-tooling:1.3.3")
 
     // Optional - Integration with activities
     implementation("androidx.activity:activity-compose:1.6.1")
