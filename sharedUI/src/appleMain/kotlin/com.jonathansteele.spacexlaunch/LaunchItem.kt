@@ -2,15 +2,15 @@ package com.jonathansteele.spacexlaunch
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Card
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.ListItem
-import androidx.compose.material.Text
+import androidx.compose.material3.Card
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ListItem
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
-@OptIn(ExperimentalMaterialApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 actual fun LaunchItem(
     launchDocs: Launch.Doc,
@@ -27,9 +27,9 @@ actual fun LaunchItem(
                 launchDocs.links.patch.small?.let {
                 }
             },*/
-            text = { Text(text = launchDocs.name) },
-            secondaryText = { LaunchDate(instant = launchDocs.dateUtc) },
-            trailing = { Text("# ${launchDocs.flightNumber}") }
+            headlineText = { Text(text = launchDocs.name) },
+            supportingText = { LaunchDate(instant = launchDocs.dateUtc) },
+            trailingContent = { Text("# ${launchDocs.flightNumber}") }
         )
     }
 }

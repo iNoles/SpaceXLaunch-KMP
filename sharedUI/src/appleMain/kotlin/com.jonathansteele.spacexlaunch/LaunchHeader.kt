@@ -25,7 +25,7 @@ actual fun LaunchHeader(
             headlineText = { Text(text = launchDoc.name) },
             supportingText = {
                 LaunchDate(instant = launchDoc.dateUtc)
-
+                Text(launchDoc.launchpad.name)
             },
         )
     }
