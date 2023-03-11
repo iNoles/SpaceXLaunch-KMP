@@ -1,11 +1,13 @@
 plugins {
     kotlin("multiplatform")
+    id("com.android.library")
     id("org.jetbrains.compose")
 }
 
 kotlin {
     jvm()
     jvmToolchain(8)
+    android()
     iosX64()
     iosArm64()
 
@@ -21,6 +23,13 @@ kotlin {
             }
         }
 
+        val androidMain by getting {
+            dependencies {
+                dependsOn(commonMain)
+                implementation("io.coil-kt:coil-compose:2.2.2")
+            }
+        }
+
         val appleMain by creating {
             dependsOn(commonMain)
         }
@@ -31,5 +40,13 @@ kotlin {
         val iosArm64Main by getting {
             dependsOn(appleMain)
         }
+    }
+}
+
+android {
+    namespace = "com.jonathansteele.spacexlaunch.ui"
+    compileSdk = 33
+    defaultConfig {
+        minSdk = 26
     }
 }

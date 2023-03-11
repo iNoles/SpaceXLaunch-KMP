@@ -1,6 +1,7 @@
-package com.jonathansteele.spacexlaunch
+package com.jonathansteele.spacexlaunch.ui
 
 import androidx.compose.foundation.ScrollState
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
@@ -26,6 +27,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.jonathansteele.spacexlaunch.Launch
+import com.jonathansteele.spacexlaunch.SpaceXAPI
 import kotlinx.coroutines.runBlocking
 
 @Composable
@@ -74,7 +77,12 @@ fun LaunchList(selectedLaunch: MutableState<Launch.Doc?>) {
         Scaffold(
             topBar = { CenterAlignedTopAppBar(title = { Text("SpaceX Launch") }) }
         ) {
-            Column(modifier = Modifier.padding(it)) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(it)
+                    .background(color = MaterialTheme.colorScheme.surfaceVariant)
+            ) {
                 FilterTabs(tabState, scroll)
                 ListBody(tabState, launchState, selectedLaunch)
             }

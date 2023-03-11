@@ -1,4 +1,4 @@
-package com.jonathansteele.spacexlaunch
+package com.jonathansteele.spacexlaunch.ui
 
 enum class TabState {
     LATEST,

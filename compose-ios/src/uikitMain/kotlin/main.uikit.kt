@@ -1,5 +1,5 @@
 import androidx.compose.ui.window.Application
-import com.jonathansteele.spacexlaunch.SpaceXLaunchViewWithTheme
+import com.jonathansteele.spacexlaunch.ui.SpaceXLaunchViewWithTheme
 import kotlinx.cinterop.autoreleasepool
 import kotlinx.cinterop.cstr
 import kotlinx.cinterop.memScoped

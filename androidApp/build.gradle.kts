@@ -13,6 +13,9 @@ android {
         versionCode = 1
         versionName = "1.0"
     }
+    kotlinOptions {
+        jvmTarget = "11"
+    }
     buildFeatures {
         compose = true
     }
@@ -37,8 +40,6 @@ android {
 
 dependencies {
     implementation(project(":sharedUI"))
-
-    implementation("io.coil-kt:coil-compose:2.2.2")
 
     // Android Studio Preview support
     implementation("androidx.compose.ui:ui-tooling-preview:1.3.3")

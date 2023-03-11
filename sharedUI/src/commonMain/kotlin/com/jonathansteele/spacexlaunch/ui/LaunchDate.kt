@@ -1,4 +1,4 @@
-package com.jonathansteele.spacexlaunch
+package com.jonathansteele.spacexlaunch.ui
 
 import androidx.compose.runtime.Composable
 import kotlinx.datetime.Instant
