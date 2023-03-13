@@ -25,4 +25,4 @@ upcoming launch.
 
 **MacOS (SwiftUI)
 <br />
-<img width="912" alt="macos desktop" src="https://raw.githubusercontent.com/iNoles/SpaceXLaunch/main/screenshots/mac-swiftui.png">
+<img width="912" alt="macos desktop" src="https://raw.githubusercontent.com/iNoles/SpaceXLaunch/main/screenshots/mac-swifui.png">
