@@ -22,3 +22,7 @@ upcoming launch.
 **Compose for Desktop**
 <br/>
 <img width="912" alt="macos desktop" src="https://raw.githubusercontent.com/iNoles/SpaceXLaunch/main/screenshots/mac-desktop.png">
+
+**MacOS (SwiftUI)
+<br />
+<img width="912" alt="macos desktop" src="https://raw.githubusercontent.com/iNoles/SpaceXLaunch/main/screenshots/mac-swiftui.png">
