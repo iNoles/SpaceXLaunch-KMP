@@ -43,7 +43,7 @@ dependencies {
 
     // Android Studio Preview support
     implementation("androidx.compose.ui:ui-tooling-preview:1.3.3")
-    debugImplementation("androidx.compose.ui:ui-tooling:1.3.3")
+    debugImplementation("androidx.compose.ui:ui-tooling:1.4.0")
 
     // Optional - Integration with activities
     implementation("androidx.activity:activity-compose:1.7.0")
