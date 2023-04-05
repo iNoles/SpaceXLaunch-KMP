@@ -42,7 +42,7 @@ dependencies {
     implementation(project(":sharedUI"))
 
     // Android Studio Preview support
-    implementation("androidx.compose.ui:ui-tooling-preview:1.4.0")
+    implementation("androidx.compose.ui:ui-tooling-preview:1.4.1")
     debugImplementation("androidx.compose.ui:ui-tooling:1.4.1")
 
     // Optional - Integration with activities
