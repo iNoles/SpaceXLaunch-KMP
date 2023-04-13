@@ -36,7 +36,7 @@ struct LaunchList: View {
             }.navigationTitle("SpaceX Launches")
         }.task {
             do {
-                let stream = asyncStream(for: SpaceXAPI().fetchAllLaunchesNative())
+                let stream = asyncSequence(for: SpaceXAPI().fetchAllLaunchesNative())
                 for try await docs in stream {
                     launchDocs = docs!
                 }

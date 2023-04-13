@@ -2,6 +2,7 @@ package com.jonathansteele.spacexlaunch
 
 import com.github.kittinunf.result.onFailure
 import com.github.kittinunf.result.onSuccess
+import com.rickclephas.kmp.nativecoroutines.NativeCoroutines
 import fuel.Fuel
 import fuel.post
 import fuel.serialization.toJson
@@ -113,7 +114,7 @@ object SpaceXAPI {
 		]
 	}
 }"""
-
+    @NativeCoroutines
     fun fetchAllLaunches() = flow {
         val json = Json { ignoreUnknownKeys = true }
         Fuel.post(
