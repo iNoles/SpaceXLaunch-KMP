@@ -24,6 +24,9 @@ kotlin {
     }
 
     sourceSets {
+        all {
+            languageSettings.optIn("kotlin.experimental.ExperimentalObjCName")
+        }
         val commonMain by getting {
             dependencies {
                 api("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")

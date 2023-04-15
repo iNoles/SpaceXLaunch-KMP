@@ -6,6 +6,7 @@ import com.rickclephas.kmp.nativecoroutines.NativeCoroutines
 import fuel.Fuel
 import fuel.post
 import fuel.serialization.toJson
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.serialization.json.Json
 
@@ -115,7 +116,7 @@ object SpaceXAPI {
 	}
 }"""
     @NativeCoroutines
-    fun fetchAllLaunches() = flow {
+    fun fetchAllLaunches(): Flow<List<Launch.Doc>?> = flow {
         val json = Json { ignoreUnknownKeys = true }
         Fuel.post(
             url = "https://api.spacexdata.com/v5/launches/query",

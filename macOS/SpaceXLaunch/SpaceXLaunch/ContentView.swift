@@ -50,7 +50,7 @@ struct ContentView: View {
             }
         }.task {
             do {
-                let stream = asyncStream(for: SpaceXAPI().fetchAllLaunchesNative())
+                let stream = asyncSequence(for: SpaceXAPI().fetchAllLaunches())
                 for try await docs in stream {
                     launchDocs = docs!
                 }
