@@ -8,7 +8,6 @@ plugins {
 
 kotlin {
     jvm()
-    jvmToolchain(8)
     android()
 
     listOf(

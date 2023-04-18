@@ -5,14 +5,10 @@ plugins {
 
 kotlin {
     iosX64 {
-        binaries {
-            executable()
-        }
+        binaries.executable()
     }
     iosArm64 {
-        binaries {
-            executable()
-        }
+        binaries.executable()
     }
 
     sourceSets {
