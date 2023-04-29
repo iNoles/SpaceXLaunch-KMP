@@ -1,4 +1,4 @@
-# SpaceXLaunch
+# SpaceXLaunch-KMP
 
 **Kotlin Multiplatform** project with SwiftUI, Jetpack Compose and Compose for Desktop. Currently running on
 * Android (Jetpack Compose)
