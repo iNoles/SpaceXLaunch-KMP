@@ -1,5 +1,11 @@
 # SpaceXLaunch-KMP
 
+[![Kotlin](https://img.shields.io/badge/Kotlin-1.8.20-blue.svg?style=flat&logo=kotlin)](https://kotlinlang.org)
+![badge-android](http://img.shields.io/badge/platform-android-6EDB8D.svg?style=flat)
+![badge-desktop](http://img.shields.io/badge/platform-desktop-4D76CD.svg?style=flat)
+![badge-desktop](http://img.shields.io/badge/platform-ios-EAEAEA.svg?style=flat)
+
+
 **Kotlin Multiplatform** project with SwiftUI, Jetpack Compose and Compose for Desktop. Currently running on
 * Android (Jetpack Compose)
 * iOS (SwiftUI)
