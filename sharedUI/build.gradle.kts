@@ -15,6 +15,7 @@ kotlin {
             dependencies {
                 api(project(":shared"))
                 api("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.0-RC")
                 api(compose.runtime)
                 api(compose.foundation)
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)

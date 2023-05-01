@@ -29,7 +29,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
-                implementation("com.github.kittinunf.fuel:fuel-kotlinx-serialization:3.0.0-SNAPSHOT")
+                implementation("com.github.kittinunf.fuel:fuel-kotlinx-serialization:main-SNAPSHOT")
             }
         }
         val commonTest by getting {

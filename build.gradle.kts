@@ -8,7 +8,3 @@ plugins {
     id("com.rickclephas.kmp.nativecoroutines") version "1.0.0-ALPHA-7" apply false
     id("org.jetbrains.compose") version "1.4.0" apply false
 }
-
-tasks.register("clean", Delete::class) {
-    delete(rootProject.buildDir)
-}

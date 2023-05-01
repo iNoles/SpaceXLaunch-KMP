@@ -10,7 +10,7 @@ import platform.Foundation.NSDateFormatterShortStyle
 import platform.Foundation.NSTimeZone
 import platform.Foundation.systemTimeZone
 
-private val MediumDateFormatter by lazy {
+private val _mediumDateFormatter by lazy {
     val formatter = NSDateFormatter()
     formatter.dateStyle = NSDateFormatterMediumStyle
     formatter.timeStyle = NSDateFormatterShortStyle
@@ -24,5 +24,5 @@ actual fun LaunchDate(instant: Instant) {
 }
 
 actual fun formattingDate(instant: Instant): String {
-    return MediumDateFormatter.stringFromDate(instant.toNSDate())
+    return _mediumDateFormatter.stringFromDate(instant.toNSDate())
 }

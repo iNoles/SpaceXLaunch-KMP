@@ -8,7 +8,7 @@ import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 
-private val MediumDateFormatter by lazy {
+private val _mediumDateFormatter by lazy {
     DateTimeFormatter
         .ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)
         .withZone(ZoneId.systemDefault())
@@ -20,5 +20,5 @@ actual fun LaunchDate(instant: Instant) {
 }
 
 actual fun formattingDate(instant: Instant): String {
-    return MediumDateFormatter.format(instant.toJavaInstant())
+    return _mediumDateFormatter.format(instant.toJavaInstant())
 }
