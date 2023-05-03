@@ -38,42 +38,32 @@ kotlin {
             }
         }
 
+        val iosX64Main by getting
+        val iosArm64Main by getting
+        val macosArm64Main by getting
+        val macosX64Main by getting
+        val iosSimulatorArm64Main by getting
         val appleMain by creating {
             dependsOn(commonMain)
-        }
-        val appleTest by creating {
-            dependsOn(commonTest)
-        }
-        val iosX64Main by getting {
-            dependsOn(appleMain)
-        }
-        val iosArm64Main by getting {
-            dependsOn(appleMain)
-        }
-        val macosArm64Main by getting {
-            dependsOn(appleMain)
-        }
-        val macosX64Main by getting {
-            dependsOn(appleMain)
-        }
-        val iosSimulatorArm64Main by getting {
-            dependsOn(appleMain)
+            iosX64Main.dependsOn(this)
+            iosArm64Main.dependsOn(this)
+            macosArm64Main.dependsOn(this)
+            macosX64Main.dependsOn(this)
+            iosSimulatorArm64Main.dependsOn(this)
         }
 
-        val iosX64Test by getting {
-            dependsOn(appleMain)
-        }
-        val iosArm64Test by getting {
-            dependsOn(appleMain)
-        }
-        val iosSimulatorArm64Test by getting {
-            dependsOn(appleTest)
-        }
-        val macosX64Test by getting {
-            dependsOn(appleTest)
-        }
-        val macosArm64Test by getting {
-            dependsOn(appleTest)
+        val iosX64Test by getting
+        val iosArm64Test by getting
+        val iosSimulatorArm64Test by getting
+        val macosX64Test by getting
+        val macosArm64Test by getting
+        val appleTest by creating {
+            dependsOn(commonTest)
+            iosX64Test.dependsOn(this)
+            iosArm64Test.dependsOn(this)
+            iosSimulatorArm64Test.dependsOn(this)
+            macosX64Test.dependsOn(this)
+            macosArm64Test.dependsOn(this)
         }
     }
 }
