@@ -32,7 +32,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
-                implementation("com.github.kittinunf.result:result:master-551ba1a-SNAPSHOT")
+                implementation("com.github.kittinunf.result:result:5.4.0")
                 implementation("com.github.kittinunf.fuel:fuel-kotlinx-serialization:main-SNAPSHOT")
             }
         }
