@@ -25,11 +25,12 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.jonathansteele.spacexlaunch.Launch
 import com.jonathansteele.spacexlaunch.SpaceXAPI
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.launch
 
 @Composable
 fun SpaceXLaunchViewWithTheme() {
@@ -92,6 +93,7 @@ fun LaunchList(selectedLaunch: MutableState<Launch.Doc?>) {
 
 @Composable
 fun FilterTabs(tabState: MutableState<TabState>, scrollState: ScrollState) {
+    val coroutineScope = rememberCoroutineScope()
     TabRow(selectedTabIndex = TabState.values().toList().indexOf(tabState.value)) {
         TabState.values().forEach {
             Tab(
@@ -99,7 +101,7 @@ fun FilterTabs(tabState: MutableState<TabState>, scrollState: ScrollState) {
                 selected = tabState.value == it,
                 onClick = {
                     tabState.value = it
-                    runBlocking {
+                    coroutineScope.launch {
                         scrollState.scrollTo(0)
                     }
                 }

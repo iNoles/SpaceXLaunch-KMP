@@ -1,7 +1,7 @@
 plugins {
     kotlin("multiplatform")
     id("com.android.library")
-    kotlin("plugin.serialization") version "1.8.20"
+    kotlin("plugin.serialization") version "1.8.21"
     id("com.google.devtools.ksp")
     id("com.rickclephas.kmp.nativecoroutines")
 }
@@ -9,6 +9,9 @@ plugins {
 kotlin {
     jvm()
     android()
+    js(IR) {
+        browser()
+    }
 
     listOf(
         iosX64(),
@@ -29,6 +32,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
+                implementation("com.github.kittinunf.result:result:master-551ba1a-SNAPSHOT")
                 implementation("com.github.kittinunf.fuel:fuel-kotlinx-serialization:main-SNAPSHOT")
             }
         }

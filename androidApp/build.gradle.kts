@@ -20,7 +20,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.6"
+        kotlinCompilerExtensionVersion = "1.4.7"
     }
     packaging {
         resources {
@@ -45,8 +45,8 @@ dependencies {
     implementation(project(":sharedUI"))
 
     // Android Studio Preview support
-    implementation("androidx.compose.ui:ui-tooling-preview:1.4.2")
-    debugImplementation("androidx.compose.ui:ui-tooling:1.4.2")
+    implementation("androidx.compose.ui:ui-tooling-preview:1.4.3")
+    debugImplementation("androidx.compose.ui:ui-tooling:1.4.3")
 
     // Optional - Integration with activities
     implementation("androidx.activity:activity-compose:1.7.1")

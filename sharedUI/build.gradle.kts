@@ -4,12 +4,21 @@ plugins {
     id("org.jetbrains.compose")
 }
 
+// TODO: Remove once a compiler with support for >1.8.21 available
+compose {
+    kotlinCompilerPlugin.set(dependencies.compiler.forKotlin("1.8.20"))
+    kotlinCompilerPluginArgs.add("suppressKotlinVersionCompatibilityCheck=1.8.21")
+}
+
 kotlin {
     jvm()
     android()
     iosX64()
     iosArm64()
     iosSimulatorArm64()
+    js(IR) {
+        browser()
+    }
 
     sourceSets {
          val commonMain by getting {

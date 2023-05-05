@@ -4,30 +4,16 @@ plugins {
 }
 
 kotlin {
-    iosX64 {
-        binaries.executable()
-    }
-    iosArm64 {
+    js(IR) {
+        browser()
         binaries.executable()
     }
 
     sourceSets {
-        val commonMain by getting {
+        val jsMain by getting {
             dependencies {
                 implementation(project(":sharedUI"))
             }
-        }
-
-        val uikitMain by creating {
-            dependsOn(commonMain)
-        }
-
-        val iosX64Main by getting {
-            dependsOn(uikitMain)
-        }
-
-        val iosArm64Main by getting {
-            dependsOn(uikitMain)
         }
     }
 }
@@ -39,8 +25,6 @@ compose {
 }
 
 compose.experimental {
-    uikit.application {
-        bundleIdPrefix = "com.jonathansteele"
-        projectName = "SpaceXLaunch"
+    web.application {
     }
 }
