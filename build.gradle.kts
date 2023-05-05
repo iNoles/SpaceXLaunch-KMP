@@ -5,6 +5,6 @@ plugins {
     kotlin("android") version "1.8.21" apply false
     kotlin("multiplatform") version "1.8.21" apply false
     id("com.google.devtools.ksp") version "1.8.21-1.0.11" apply false
-    id("com.rickclephas.kmp.nativecoroutines") version "1.0.0-ALPHA-8" apply false
+    id("com.rickclephas.kmp.nativecoroutines") version "1.0.0-ALPHA-9" apply false
     id("org.jetbrains.compose") version "1.4.0" apply false
 }
