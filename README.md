@@ -8,9 +8,6 @@
 
 SpaceX Launch is a simple app that allows you to see upcoming and latest launches. It is built using Kotlin Multiplatform, so it works on Android, iOS, and Desktops.
 
-It makes use of [SpaceX API](https://github.com/r-spacex/SpaceX-API) to show list of past and
-upcoming launch.
-
 ### Screenshots
 
 **Android (Jetpack Compose)**
