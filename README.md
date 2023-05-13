@@ -1,4 +1,4 @@
-# SpaceXLaunch-KMP
+# SpaceXLaunch Kotlin Multiplatform
 
 [![Kotlin](https://img.shields.io/badge/Kotlin-1.8.20-blue.svg?style=flat&logo=kotlin)](https://kotlinlang.org)
 ![badge-android](http://img.shields.io/badge/platform-android-6EDB8D.svg?style=flat)
