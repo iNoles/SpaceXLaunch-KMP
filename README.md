@@ -4,7 +4,6 @@
 ![badge-android](http://img.shields.io/badge/platform-android-6EDB8D.svg?style=flat)
 ![badge-desktop](http://img.shields.io/badge/platform-desktop-4D76CD.svg?style=flat)
 ![badge-desktop](http://img.shields.io/badge/platform-ios-EAEAEA.svg?style=flat)
-![badge-browser](https://img.shields.io/badge/platform-js-F8DB5D.svg?style=flat)
 
 SpaceX Launch is a simple app that allows you to see upcoming and latest launches. It is built using Kotlin Multiplatform, so it works on Android, iOS, and Desktops.
 
