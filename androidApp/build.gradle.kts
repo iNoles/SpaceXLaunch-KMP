@@ -1,18 +1,7 @@
 plugins {
-    kotlin("multiplatform")
+    kotlin("android")
     id("com.android.application")
     id("org.jetbrains.compose")
-}
-
-kotlin {
-    android()
-    sourceSets {
-        val androidMain by getting {
-            dependencies {
-                implementation(project(":shared"))
-            }
-        }
-    }
 }
 
 android {
@@ -35,4 +24,9 @@ android {
     kotlin {
         jvmToolchain(11)
     }
+}
+
+dependencies {
+    implementation(project(":shared"))
+    implementation("androidx.activity:activity-compose:1.7.1")
 }

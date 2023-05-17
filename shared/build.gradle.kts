@@ -44,7 +44,6 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                api("androidx.activity:activity-compose:1.7.1")
                 implementation("io.coil-kt:coil-compose:2.3.0")
             }
         }
