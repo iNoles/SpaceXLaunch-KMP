@@ -44,7 +44,7 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                implementation("io.coil-kt:coil-compose:2.3.0")
+                implementation("io.coil-kt:coil-compose:2.4.0")
             }
         }
         val iosX64Main by getting
