@@ -6,7 +6,9 @@ plugins {
     id("org.jetbrains.compose")
 }
 
+@OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
 kotlin {
+    targetHierarchy.default() // https://kotlinlang.org/docs/whatsnew1820.html#new-approach-to-source-set-hierarchy
     android()
 
     jvm("desktop")
@@ -47,15 +49,6 @@ kotlin {
                 implementation("io.coil-kt:coil-compose:2.4.0")
             }
         }
-        val iosX64Main by getting
-        val iosArm64Main by getting
-        val iosSimulatorArm64Main by getting
-        val iosMain by creating {
-            dependsOn(commonMain)
-            iosX64Main.dependsOn(this)
-            iosArm64Main.dependsOn(this)
-            iosSimulatorArm64Main.dependsOn(this)
-        }
     }
 }
 
@@ -64,7 +57,6 @@ android {
     namespace = "com.jonathansteele.spacexlaunch.shared"
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
-    sourceSets["main"].res.srcDirs("src/androidMain/res")
 
     defaultConfig {
         minSdk = (findProperty("android.minSdk") as String).toInt()
